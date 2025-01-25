@@ -26,9 +26,12 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langgraph.graph import START, StateGraph
 from typing_extensions import List, TypedDict
+from dotenv import load_dotenv
 
-if not os.environ.get("DASHSCOPE_API_KEY"):
-    os.environ["DASHSCOPE_API_KEY"] = "sk-8e24269478904f5683d6998e2ed637c8"
+load_dotenv()
+api_key = os.environ.get("DASHSCOPE_API_KEY")
+if not api_key:
+    raise ValueError("DASHSCOPE_API_KEY is not set in the .env file or environment variables")
 
 
 
