@@ -12,12 +12,12 @@ lango.train_and_evaluate()
 
 sample_input = lango.X_test_n.iloc[:5]
 print(sample_input)
-print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_a", sample_input))
+print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_LengthofCycle", sample_input))
 
 # Predict with model_c (binary classification)
 sample_input = lango.X_test_c.iloc[:5]
 print(sample_input)
-print("\nPredictions for y_c (Unusual Bleeding):", lango.predict("model_c", sample_input))
+print("\nPredictions for y_c (Unusual Bleeding):", lango.predict("model_UnusualBleeding", sample_input))
 
 file_path = 'FedCycleData071012 (2) (1).csv'
 
@@ -47,6 +47,6 @@ X=X.drop(columns=["ClientID"])
 
 sample_input = X.iloc[:15]
 print(sample_input)
-print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_c", sample_input))
+print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_UnusualBleeding", sample_input))
 
 

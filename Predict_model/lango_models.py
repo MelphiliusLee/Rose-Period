@@ -13,14 +13,14 @@ class LangoModels:
             "MeanBleedingIntensity", "NumberofDaysofIntercourse",
             "Yearsmarried", "MeanCycleLength"
         ]
-        self.label_a = "LengthofCycle"
-        self.label_b = "LengthofMenses"
-        self.label_c = "UnusualBleeding"
+        self.label_LengthofCycle = "LengthofCycle"
+        self.label_LengthofMenses = "LengthofMenses"
+        self.label_UnusualBleeding = "UnusualBleeding"
 
         self.df = None
-        self.model_a = None
-        self.model_b = None
-        self.model_c = None
+        self.model_LengthofCycle = None
+        self.model_LengthofMenses = None
+        self.model_UnusualBleeding = None
 
         self.X_train_c, self.X_test_c = None, None
         self.y_train_c, self.y_test_c = None, None
@@ -36,7 +36,7 @@ class LangoModels:
         """
         Load, clean, and preprocess data.
         """
-        columns_to_load = self.features + [self.label_a, self.label_b, self.label_c]
+        columns_to_load = self.features + [self.label_LengthofCycle, self.label_LengthofMenses, self.label_UnusualBleeding]
         self.df = pd.read_csv(self.file_path, usecols=columns_to_load)
 
         # Drop duplicates based on ClientID
@@ -46,7 +46,7 @@ class LangoModels:
 
         # Prepare data for binary classification
         X = self.df[self.features].drop(columns=["ClientID"])
-        y_c = self.df[self.label_c].astype(int)
+        y_c = self.df[self.label_UnusualBleeding].astype(int)
 
         smote = SMOTE(random_state=42)
         X_smote, y_c_smote = smote.fit_resample(X, y_c)
@@ -55,8 +55,8 @@ class LangoModels:
         )
 
         # Prepare data for numerical prediction
-        y_a = self.df[self.label_a]
-        y_b = self.df[self.label_b]
+        y_a = self.df[self.label_LengthofCycle]
+        y_b = self.df[self.label_LengthofMenses]
         self.X_train_n, self.X_test_n, self.y_train_a, self.y_test_a = train_test_split(
             X, y_a, test_size=0.2, random_state=23
         )
@@ -69,19 +69,19 @@ class LangoModels:
         Build and initialize models.
         """
         # Binary classification model for y_c
-        self.model_c = RandomForestClassifier(random_state=42)
+        self.model_UnusualBleeding = RandomForestClassifier(random_state=42)
 
         # Regression models for y_a and y_b
-        self.model_a = RandomForestRegressor(random_state=42)
-        self.model_b = RandomForestRegressor(random_state=42)
+        self.model_LengthofCycle = RandomForestRegressor(random_state=42)
+        self.model_LengthofMenses = RandomForestRegressor(random_state=42)
 
     def train_and_evaluate(self):
         """
         Train and evaluate all models.
         """
         # Train and evaluate model_c (binary classification)
-        self.model_c.fit(self.X_train_c, self.y_train_c)
-        y_pred_c = self.model_c.predict(self.X_test_c)
+        self.model_UnusualBleeding.fit(self.X_train_c, self.y_train_c)
+        y_pred_c = self.model_UnusualBleeding.predict(self.X_test_c)
         cm = confusion_matrix(self.y_test_c, y_pred_c)
         accuracy_c = accuracy_score(self.y_test_c, y_pred_c)
         TN, FP, FN, TP = cm.ravel()
@@ -95,8 +95,8 @@ class LangoModels:
         print("False Positive Rate:", false_positive_rate)
 
         # Train and evaluate model_a (regression for y_a)
-        self.model_a.fit(self.X_train_n, self.y_train_a)
-        y_pred_a = self.model_a.predict(self.X_test_n)
+        self.model_LengthofCycle.fit(self.X_train_n, self.y_train_a)
+        y_pred_a = self.model_LengthofCycle.predict(self.X_test_n)
         mae_a = mean_absolute_error(self.y_test_a, y_pred_a)
         mse_a = mean_squared_error(self.y_test_a, y_pred_a)
 
@@ -105,8 +105,8 @@ class LangoModels:
         print("Mean Squared Error (MSE):", mse_a)
 
         # Train and evaluate model_b (regression for y_b)
-        self.model_b.fit(self.X_train_n, self.y_train_b)
-        y_pred_b = self.model_b.predict(self.X_test_n)
+        self.model_LengthofMenses.fit(self.X_train_n, self.y_train_b)
+        y_pred_b = self.model_LengthofMenses.predict(self.X_test_n)
         mae_b = mean_absolute_error(self.y_test_b, y_pred_b)
         mse_b = mean_squared_error(self.y_test_b, y_pred_b)
 
@@ -123,12 +123,14 @@ class LangoModels:
 
         Returns:
             Predicted values.
+
         """
-        if model_type == "model_a":
-            return self.model_a.predict(X_input)
-        elif model_type == "model_b":
-            return self.model_b.predict(X_input)
-        elif model_type == "model_c":
-            return self.model_c.predict(X_input)
+
+        if model_type == "model_LengthofCycle":
+            return self.model_LengthofCycle.predict(X_input)
+        elif model_type == "model_LengthofMenses":
+            return self.model_LengthofMenses.predict(X_input)
+        elif model_type == "model_UnusualBleeding":
+            return self.model_UnusualBleeding.predict(X_input)
         else:
-            raise ValueError("Invalid model_type. Choose 'model_a', 'model_b', or 'model_c'.")
+            raise ValueError("Invalid model_type. Choose 'model_LengthofCycle', 'model_LengthofMenses', or 'model_UnusualBleeding'.")
