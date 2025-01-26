@@ -25,11 +25,11 @@ def get_answer_from_chatbot(request: Request):
     mean_cycle_length = request.query_params.get("MeanCycleLength")
 
     prompt = ""
-    if age:
+    if age and int(age) != -1:
         prompt += f"I am {age} years old. "
-    if height:
+    if height and int(height) != -1:
         prompt += f"My height is {height} inches. "
-    if weight:
+    if weight and int(weight) != -1:
         prompt += f"My weight is {weight} pounds. "
     if mean_bleeding_intensity and int(mean_bleeding_intensity) != -1:
         if int(mean_bleeding_intensity) > 5:
