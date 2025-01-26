@@ -8,9 +8,8 @@ Nearly **50% of women** report feeling underserved or misunderstood when it come
 
 ## 💡 What it does
 Rose Period is an **all-in-one iOS app** designed for women’s health, featuring:
-1. 🤖 **Chatbot:** Ask questions, seek advice, or have conversations on women’s health topics.
+1. 🤖 **Chatbot:** Engage in conversations, ask questions, or seek advice on women’s health topics with responses personalized to your unique health data.
 2. 📅 **Period Tracker:** Log your menstrual cycle and predict your next period.
-3. 🌸 **Community Hub:** Share stories, concerns, and experiences in a supportive environment.
 
 ---
 
@@ -20,11 +19,9 @@ Rose Period was built using a combination of cutting-edge tools and frameworks:
 - **Swift** 🍎: To create a smooth and intuitive iOS user interface.
 - **LangChain** 🧠: For enhancing chatbot’s conversational abilities.
 - **Scikit-learn** 📈: To develop the period prediction algorithm.
-- **FastAPI** ⚡: For a robust and fast backend API.
+- **FastAPI** ⚡: For a robust and fast backend framework.
 - **ChatTongyi** 💬: Powering our conversational AI chatbot.
 - **Hugging Face** 🤗: Leveraging pre-trained models for natural language understanding.
-
-By combining these tools, we created a **scalable, efficient, and user-friendly** platform.
 
 ---
 
@@ -38,15 +35,15 @@ By combining these tools, we created a **scalable, efficient, and user-friendly*
 
 ## 🏆 Accomplishments that we're proud of
 - Developing an accurate **period prediction algorithm** with accuracy 93.3%.
-- Building a conversational **AI-powered chatbot** tailored for women’s health.
+- Building a conversational **AI-powered chatbot** that provides personalized support, leveraging each user’s unique health data to address their specific needs and concerns related to women’s health.
 - Crafting a user-friendly design focused on comfort and simplicity.
 - Addressing a critical gap in **women’s health technology** with a meaningful solution.
 
 ---
 
 ## 🎓 What we learned
-- The importance of **user-centric design** for health-related applications.
 - How to effectively integrate **machine learning** into real-time apps.
+- The importance of **user-centric design** for health-related applications.
 - The power of **collaboration** and rapid problem-solving in a hackathon environment.
 - A deeper understanding of **women’s health challenges** and how technology can provide solutions.
 
@@ -56,6 +53,8 @@ By combining these tools, we created a **scalable, efficient, and user-friendly*
 - 🌍 **Global reach:** Add multilingual support to serve a broader audience.
 - 📱 **Wearable integration:** Incorporate data from wearable devices for more precise period predictions.
 - 🤝 **Healthcare partnerships:** Collaborate with providers to include verified resources.
+- 🔒 **User login and profiles:** Implement secure user authentication, allowing personalized tracking and insights across devices.
+- ☁️ **Cloud data storage:** Enable seamless syncing of user data across devices and provide secure, scalable storage for health history.
 - 🎯 **User feedback loop:** Launch on the App Store and refine the app based on user insights.
 - 🛠️ **Feature expansion:** Enhance the chatbot and add more health-related features.
 
