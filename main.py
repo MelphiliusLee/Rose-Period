@@ -35,6 +35,11 @@ def get_answer_from_lango(request: Request):
     years_married = request.query_params.get("YearOfMarried")
     mean_cycle_length = request.query_params.get("MeanCycleLength")
 
+    # Validate parameters
+    if not all([age, height, weight, mean_bleeding_intensity, number_of_days_intercourse, years_married,
+                mean_cycle_length]):
+        return {"success": 0, "message": "One or more required query parameters are missing."}
+
     try:
         age = int(age)
         height = int(height)
@@ -54,7 +59,7 @@ def get_answer_from_lango(request: Request):
     dataframe = pd.DataFrame([data], columns=columns, index=[1])
 
     try:
-        print(data)
+        print("request input: ", data)
         length_of_cycle = lango_model.predict("model_LengthofCycle", dataframe).tolist()
         print("success getting length_of_cycle:", length_of_cycle)
         length_of_menses = lango_model.predict("model_LengthofMenses", dataframe).tolist()
