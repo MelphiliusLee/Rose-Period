@@ -2,6 +2,9 @@
 Track: Beginner Track, Women-Centric Track, Social Impact Track.
 Hackathon project for rosehack 2025
 
+## Our github repo for fronend
+https://github.com/nenesekai/roseperiod
+
 ## 🌟 Inspiration
 Nearly **50% of women** report feeling underserved or misunderstood when it comes to healthcare, according to recent studies. Many face challenges finding a safe, reliable platform for discussing sensitive topics or tracking their health. Inspired by this gap, we created **Rose Period**—a space to empower women globally by providing a supportive, technology-driven solution for their health needs.
 
