@@ -61,10 +61,13 @@ def get_answer_from_lango(request: Request):
         print("success getting length_of_menses:", length_of_menses)
         unusual_bleeding = lango_model.predict("model_UnusualBleeding", dataframe).tolist()
         print("success getting unusual_bleeding:", unusual_bleeding)
+    except Exception as e:
+        return {"success": 0, "message": f"An error occurred while processing the request: {str(e)}"}
 
+    try:
         # Convert the first two to integers
-        length_of_cycle = int(length_of_cycle[0])
-        length_of_menses = int(length_of_menses[0])
+        length_of_cycle = round(length_of_cycle[0])
+        length_of_menses = round(length_of_menses[0])
         unusual_bleeding = unusual_bleeding[0]
 
         # Validate unusual_bleeding is either 0 or 1
@@ -77,6 +80,5 @@ def get_answer_from_lango(request: Request):
             "length_of_menses": length_of_menses,
             "unusual_bleeding": unusual_bleeding
         }
-
     except Exception as e:
-        return {"success": 0, "message": f"An error occurred while processing the request: {str(e)}"}
+        return {"success": 0, "message": f"An error occurred during processing prediction result: {str(e)}"}
