@@ -28,28 +28,34 @@ def get_answer_from_chatbot(request: Request):
 
 @app.get("/predict_period")
 def get_answer_from_lango(request: Request):
-    days_to_next_period = request.query_params.get("DaysToNextPeriod")
-    try:
-        days_to_next_period = int(days_to_next_period)
-    except Exception as e:
-        return {"success": 0, "message": f"An error occurred while converting request body parameter: {str(e)}"}
+    age = request.query_params.get("Age")
+    height = request.query_params.get("Height")
+    weight = request.query_params.get("Weight")
+    mean_bleeding_intensity = request.query_params.get("Mean Bleeding Intensity")
+    number_of_days_intercourse = request.query_params.get("Number of Days of Intercourse")
+    years_married = request.query_params.get("Years of Married")
+    mean_cycle_length = request.query_params.get("MeanCycleLength")
 
-    length_of_next_period = request.query_params.get("LengthToNextPeriod")
-    try:
-        length_of_next_period = int(length_of_next_period)
-    except Exception as e:
-        return {"success": 0, "message": f"An error occurred while converting request body parameter: {str(e)}"}
-
-    has_unusual_bleeding = request.query_params.get("HasUnusualBleeding")
-    try:
-        has_unusual_bleeding = int(has_unusual_bleeding)
-    except Exception as e:
-        return {"success": 0, "message": f"An error occurred while converting request body parameter: {str(e)}"}
+    # body = request.json()
+    # mean_bleeding_intensity = body.get("Mean Bleeding Intensity")
 
     try:
-        length_of_cycle = lango_model.predict("model_LengthofCycle", length_of_next_period)
-        length_of_menses = lango_model.predict("model_LengthofMenses", days_to_next_period)
-        unusual_bleeding = lango_model.predict("model_UnusualBleeding", has_unusual_bleeding)
+        age = int(age)
+        height = int(height)
+        weight = int(weight)
+        mean_bleeding_intensity = int(mean_bleeding_intensity)
+        number_of_days_intercourse = int(number_of_days_intercourse)
+        years_married = int(years_married)
+        mean_cycle_length = int(mean_cycle_length)
+    except Exception as e:
+        return {"success": 0, "message": f"An error occurred while converting parameters: {str(e)}"}
+
+    X = [age, height, weight, mean_bleeding_intensity, number_of_days_intercourse, years_married, mean_cycle_length]
+
+    try:
+        length_of_cycle = lango_model.predict("model_LengthofCycle", X)
+        length_of_menses = lango_model.predict("model_LengthofMenses", X)
+        unusual_bleeding = lango_model.predict("model_UnusualBleeding", X)
         return {
             "success": 1,
             "length_of_cycle": length_of_cycle,
