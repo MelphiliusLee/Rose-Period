@@ -1,5 +1,3 @@
-from rag_model import RAGModel
-from data import data_saver
 
 data_saver.save_data_to_vector("../data")
 rag_model = RAGModel("faiss_index")
