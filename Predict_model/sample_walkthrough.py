@@ -10,12 +10,12 @@ lango.train_and_evaluate()
 # Predict with model_a (numerical prediction)
 
 
-sample_input = lango.X_test_n.iloc[:1]
+sample_input = lango.X_test_n.iloc[:5]
 print(sample_input)
 print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_LengthofCycle", sample_input))
 
 # Predict with model_c (binary classification)
-sample_input = lango.X_test_c.iloc[:1]
+sample_input = lango.X_test_c.iloc[:5]
 print(sample_input)
 print("\nPredictions for y_c (Unusual Bleeding):", lango.predict("model_UnusualBleeding", sample_input))
 
@@ -44,8 +44,8 @@ df = df_filtered.apply(lambda col: col.fillna(col.mean()) if col.dtype in ['floa
 
 X = df[features]
 X=X.drop(columns=["ClientID"])
-print("mean:", X["MeanCycleLength"].mean())
-sample_input = X.iloc[:1]
+
+sample_input = X.iloc[:15]
 print(sample_input)
 print("\nPredictions for y_a (Length of Cycle):", lango.predict("model_UnusualBleeding", sample_input))
 
