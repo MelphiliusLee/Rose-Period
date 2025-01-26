@@ -1,4 +1,5 @@
 # Rose-Period
+Track: Beginner Track, Women-Centric Track, Social Impact Track.
 Hackathon project for rosehack 2025
 
 ## 🌟 Inspiration
