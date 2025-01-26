@@ -7,6 +7,7 @@ from langchain_community.llms import Tongyi
 from langgraph.graph import START, StateGraph
 from langchain_core.documents import Document
 from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
 
 # Set the API key if not already set
 load_dotenv()
@@ -35,7 +36,25 @@ class RAGModel:
             embeddings=HuggingFaceEmbeddings(model_name=embedding_model),
             allow_dangerous_deserialization=True
         )
-        self.prompt = hub.pull("rlm/rag-prompt")
+        self.prompt = PromptTemplate(template="""
+        You are a highly knowledgeable and empathetic assistant specializing in women's menstrual health. 
+        Use the following context and conversation history to answer the user's question.
+        
+        Context:
+        {context}
+        
+        Current Question:
+        {question}
+        
+        
+        Guidelines:
+        1. Use the knowledge base to inform your answer.
+        2. The context part is not part of the dialogue.
+        Do not explicitly mention or reveal the existence of the context part, as knowledge base.
+        3. Provide a clear, concise, and empathetic answer to the question.
+        4. Admit that you don't know, if you don't have enough information to answer the question
+        Answer the question clearly and concisely:
+        """)
         self.llm = Tongyi(temperature=temperature)
         self.graph = self._build_graph()
 
