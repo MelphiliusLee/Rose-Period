@@ -16,9 +16,37 @@ def get_answer_from_chatbot(request: Request):
     if not query:
         return {"success": 0, "message": "Please provide a question."}
 
+    age = request.query_params.get("Age")
+    height = request.query_params.get("Height")
+    weight = request.query_params.get("Weight")
+    mean_bleeding_intensity = request.query_params.get("MeanBleedingIntensity")
+    number_of_days_intercourse = request.query_params.get("NumberOfDaysOfIntercourse")
+    years_married = request.query_params.get("YearOfMarried")
+    mean_cycle_length = request.query_params.get("MeanCycleLength")
+
+    prompt = ""
+    if age:
+        prompt += f"I am {age} years old. "
+    if height:
+        prompt += f"My height is {height} inches. "
+    if weight:
+        prompt += f"My weight is {weight} pounds. "
+    if mean_bleeding_intensity and int(mean_bleeding_intensity) != -1:
+        if int(mean_bleeding_intensity) > 5:
+            prompt += "I have unusual bleeding. "
+        else:
+            prompt += "I do not have unusual bleeding. "
+    if number_of_days_intercourse and int(number_of_days_intercourse) != -1:
+        prompt += f"I have intercourse {number_of_days_intercourse} days a month. "
+    if years_married and int(years_married) != -1:
+        prompt += f"I have been married for {years_married} years. "
+    if mean_cycle_length and int(mean_cycle_length) != -1:
+        prompt += f"My mean period cycle length is {mean_cycle_length} days. "
+    prompt += query
+
     try:
         # fetch answer from rag_model
-        answer = rag_model.get_answer(query)
+        answer = rag_model.get_answer(prompt)
         return {"success": 1, "message": answer}
     except Exception as e:
         # catch any error
